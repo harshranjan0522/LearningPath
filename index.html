@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Path Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Learning Path Dashboard</h1>
+
+        <div id="skill-level-section">
+            <label for="skill-level">Enter your skill level:</label>
+            <select id="skill-level">
+                <option value="">Select...</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+            </select>
+            <button id="get-path-btn">Get Learning Path</button>
+        </div>
+
+        <div id="learning-path-section" class="hidden">
+            <h2>Your Learning Path</h2>
+            <ul id="learning-path"></ul>
+        </div>
+
+        <div id="options-section" class="hidden">
+            <h2>Options</h2>
+            <button id="mark-completed-btn">Mark a Course as Completed</button>
+            <button id="view-progress-btn">View Progress</button>
+            <button id="generate-report-btn">Generate Report</button>
+            <button id="reset-btn">Reset Progress</button>
+            <button id="exit-btn">Exit</button>
+        </div>
+
+        <div id="result-section" class="hidden">
+            <h2>Results</h2>
+            <div id="result-content"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

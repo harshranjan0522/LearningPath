@@ -1,0 +1,201 @@
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    select, button {
+        width: 100%;
+        margin-top: 10px;
+    }
+    #options-section {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center; /* Center align for better visual appearance */
+    }
+    #skill-level-section {
+        flex-direction: column; /* Stack the dropdown and button vertically */
+        gap: 15px;
+    }
+}
+
+/* Tooltip for Course Details */
+#learning-path li {
+    position: relative;
+    cursor: pointer;
+}
+
+#learning-path li:hover::after {
+    content: attr(data-details);
+    position: absolute;
+    top: -10px;
+    left: 110%;
+    max-width: 250px; /* Limit tooltip width */
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    font-size: 0.9em;
+    z-index: 10;
+    overflow-wrap: break-word; /* Ensure text wraps inside tooltip */
+    white-space: normal;
+}
+
+/* Prevent tooltip from exceeding screen width */
+#learning-path li:hover::after {
+    right: auto;
+    left: auto;
+    transform: translateX(-110%);
+}
+
+/* Base Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.container:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    text-align: center;
+    color: #4a90e2;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: #4a90e2;
+    font-size: 1.1em;
+}
+
+select, button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    display: inline-block;
+}
+
+button {
+    background-color: #4a90e2;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #357ABD;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Enhanced Learning Path and Result Section */
+#learning-path, #result-content {
+    margin-top: 30px;
+    list-style-type: none;
+    padding: 0;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+#learning-path li {
+    background-color: #e6f7ff;
+    color: #333;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#learning-path li:hover {
+    transform: translateX(10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+#learning-path li.completed {
+    background-color: #d4edda;
+}
+
+#learning-path li.incomplete {
+    background-color: #f8d7da;
+}
+
+#result-content p, #result-content ul {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: #333;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Layout Sections */
+#options-section, #skill-level-section {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+#skill-level-section select, #skill-level-section button {
+    flex: 1;
+}
+
+#result-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Transparent Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    visibility: hidden; /* Initially hidden */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    visibility: visible; /* Visible on hover */
+}
