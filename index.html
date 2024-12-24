@@ -4,43 +4,381 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Path Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafc;
+            color: #333;
+            line-height: 1.6;
+        }
+    
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+    
+        /* Hidden Section */
+        .hidden {
+            display: none;
+        }
+    
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+    
+        input, select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+    
+        input:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+    
+        select {
+            background-color: #ffffff;
+            cursor: pointer;
+        }
+    
+        /* Button Styles */
+        button {
+            padding: 12px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+    
+        button.secondary {
+            background-color: #6c757d;
+        }
+    
+        button.secondary:hover {
+            background-color: #5a6268;
+        }
+    
+        /* List Styles */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+    
+        li {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 16px;
+        }
+    
+        li.completed {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    
+        li.incomplete {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    
+        /* Result Section */
+        #result-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    
+        #result-content ul {
+            margin: 0;
+            padding: 0;
+        }
+    
+        #result-content ul li {
+            margin-bottom: 5px;
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+    
+            .container {
+                padding: 15px;
+            }
+    
+            h1 {
+                font-size: 1.5rem;
+            }
+    
+            button {
+                font-size: 14px;
+            }
+    
+            input, select {
+                font-size: 14px;
+            }
+    
+            li {
+                font-size: 14px;
+            }
+        }
+    </style>
+    
 </head>
 <body>
     <div class="container">
-        <h1>Learning Path Dashboard</h1>
+        <!-- Authentication Section -->
+        <section id="auth-section">
+            <h1>Welcome to the Learning Path Dashboard</h1>
+            <div class="auth-container">
+                <!-- Sign Up Form -->
+                <form id="signup-form">
+                    <input type="email" id="signup-email" placeholder="Enter Email" required>
+                    <input type="password" id="signup-password" placeholder="Enter Password" required>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <!-- Login Form -->
+                <form id="login-form">
+                    <input type="email" id="login-email" placeholder="Enter Email" required>
+                    <input type="password" id="login-password" placeholder="Enter Password" required>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </section>
 
-        <div id="skill-level-section">
-            <label for="skill-level">Enter your skill level:</label>
-            <select id="skill-level">
-                <option value="">Select...</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
-            <button id="get-path-btn">Get Learning Path</button>
-        </div>
+        <!-- Main Content Section -->
+        <section id="main-content" class="hidden">
+            <h1>Learning Path Dashboard</h1>
+            <div>
+                <label for="skill-level">Select your skill level:</label>
+                <select id="skill-level">
+                    <option value="">--Choose--</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+                <button id="get-path-btn">Get Learning Path</button>
+            </div>
 
-        <div id="learning-path-section" class="hidden">
-            <h2>Your Learning Path</h2>
-            <ul id="learning-path"></ul>
-        </div>
+            <section id="learning-path-section" class="hidden">
+                <h2>Your Learning Path</h2>
+                <ul id="learning-path"></ul>
+                <button id="mark-completed-btn">Mark as Completed</button>
+                <button id="view-progress-btn">View Progress</button>
+                <button id="generate-report-btn">Generate Report</button>
+                <button id="reset-progress-btn" class="secondary">Reset Progress</button>
+            </section>
 
-        <div id="options-section" class="hidden">
-            <h2>Options</h2>
-            <button id="mark-completed-btn">Mark a Course as Completed</button>
-            <button id="view-progress-btn">View Progress</button>
-            <button id="generate-report-btn">Generate Report</button>
-            <button id="reset-btn">Reset Progress</button>
-            <button id="exit-btn">Exit</button>
-        </div>
+            <section id="result-section" class="hidden">
+                <h2>Results</h2>
+                <div id="result-content"></div>
+            </section>
 
-        <div id="result-section" class="hidden">
-            <h2>Results</h2>
-            <div id="result-content"></div>
-        </div>
+            <button id="exit-btn" class="secondary">Exit</button>
+        </section>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const signupForm = document.getElementById('signup-form');
+            const loginForm = document.getElementById('login-form');
+            const mainContent = document.getElementById('main-content');
+            const authSection = document.getElementById('auth-section');
+        
+            // Check if user is already logged in by checking localStorage
+            if (localStorage.getItem('userEmail') && localStorage.getItem('userPassword')) {
+                authSection.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+            }
+        
+            const handleAuth = (event, action) => {
+                event.preventDefault();
+                const email = action === "Sign Up" ? document.getElementById('signup-email').value : document.getElementById('login-email').value;
+                const password = action === "Sign Up" ? document.getElementById('signup-password').value : document.getElementById('login-password').value;
+        
+                if (action === "Sign Up") {
+                    // Store credentials in localStorage
+                    localStorage.setItem('userEmail', email);
+                    localStorage.setItem('userPassword', password);
+                    alert("Sign Up Successful!");
+                    authSection.classList.add('hidden');
+                    mainContent.classList.remove('hidden');
+                } else if (action === "Login") {
+                    // Retrieve credentials from localStorage and check if they match
+                    const storedEmail = localStorage.getItem('userEmail');
+                    const storedPassword = localStorage.getItem('userPassword');
+                    
+                    if (email === storedEmail && password === storedPassword) {
+                        alert("Login Successful!");
+                        authSection.classList.add('hidden');
+                        mainContent.classList.remove('hidden');
+                    } else {
+                        alert("Invalid email or password. Please sign up first.");
+                    }
+                } else {
+                    alert("Please enter both email and password.");
+                }
+            };
+        
+            signupForm.addEventListener('submit', (event) => handleAuth(event, "Sign Up"));
+            loginForm.addEventListener('submit', (event) => handleAuth(event, "Login"));
+        
+            // Get Learning Path
+            const getPathBtn = document.getElementById('get-path-btn');
+            const learningPathSection = document.getElementById('learning-path-section');
+            const learningPath = document.getElementById('learning-path');
+
+            getPathBtn.addEventListener('click', () => {
+                const skillLevel = document.getElementById('skill-level').value;
+                if (!skillLevel) {
+                    alert('Please select your skill level.');
+                    return;
+                }
+
+                // Dummy courses based on skill level
+                const courses = {
+                    beginner: ['Course 1: Basics of Programming', 'Course 2: HTML & CSS', 'Course 3: JavaScript Fundamentals'],
+                    intermediate: ['Course 1: Advanced JavaScript', 'Course 2: React Basics', 'Course 3: APIs'],
+                    advanced: ['Course 1: Full-stack Development', 'Course 2: System Design', 'Course 3: Cloud Computing']
+                };
+
+                learningPath.innerHTML = '';
+                courses[skillLevel].forEach(course => {
+                    const li = document.createElement('li');
+                    li.textContent = course;
+                    li.classList.add('incomplete'); // Initially incomplete
+                    learningPath.appendChild(li);
+                });
+
+                learningPathSection.classList.remove('hidden');
+            });
+
+            // Additional functionalities (Mark as Completed, View Progress, Generate Report, Reset Progress, Exit)
+            const markCompletedBtn = document.getElementById('mark-completed-btn');
+            markCompletedBtn.addEventListener('click', () => {
+                const items = learningPath.querySelectorAll('li');
+                if (!items.length) {
+                    alert('No courses available to mark as completed.');
+                    return;
+                }
+
+                const courseToMark = prompt('Enter the course number to mark as completed (e.g., 1 for the first course):');
+                const index = parseInt(courseToMark, 10) - 1;
+
+                if (index >= 0 && index < items.length) {
+                    items[index].classList.remove('incomplete');
+                    items[index].classList.add('completed');
+                } else {
+                    alert('Invalid course number.');
+                }
+            });
+
+            // View Progress
+            const viewProgressBtn = document.getElementById('view-progress-btn');
+            const resultContent = document.getElementById('result-content');
+            const resultSection = document.getElementById('result-section');
+
+            viewProgressBtn.addEventListener('click', () => {
+                const items = learningPath.querySelectorAll('li');
+                if (!items.length) {
+                    alert('No courses to view progress.');
+                    return;
+                }
+
+                const completed = Array.from(items).filter(item => item.classList.contains('completed')).length;
+                const total = items.length;
+
+                resultContent.innerHTML = `<p>You have completed ${completed} out of ${total} courses.</p>`;
+                resultSection.classList.remove('hidden');
+            });
+
+            // Generate Report
+            const generateReportBtn = document.getElementById('generate-report-btn');
+            generateReportBtn.addEventListener('click', () => {
+                const items = learningPath.querySelectorAll('li');
+                if (!items.length) {
+                    alert('No courses to generate report.');
+                    return;
+                }
+
+                const completedCourses = Array.from(items).filter(item => item.classList.contains('completed')).map(item => item.textContent);
+                const incompleteCourses = Array.from(items).filter(item => item.classList.contains('incomplete')).map(item => item.textContent);
+
+                resultContent.innerHTML = `
+                    <h3>Report:</h3>
+                    <p><strong>Completed Courses:</strong></p>
+                    <ul>${completedCourses.map(course => `<li>${course}</li>`).join('')}</ul>
+                    <p><strong>Incomplete Courses:</strong></p>
+                    <ul>${incompleteCourses.map(course => `<li>${course}</li>`).join('')}</ul>
+                `;
+                resultSection.classList.remove('hidden');
+            });
+
+            // Reset Progress
+            const resetProgressBtn = document.getElementById('reset-progress-btn');
+            resetProgressBtn.addEventListener('click', () => {
+                const items = learningPath.querySelectorAll('li');
+                if (!items.length) {
+                    alert('No courses to reset progress.');
+                    return;
+                }
+
+                items.forEach(item => {
+                    item.classList.remove('completed');
+                    item.classList.add('incomplete');
+                });
+
+                alert('All course progress has been reset to incomplete.');
+            });
+
+            // Exit
+            const exitBtn = document.getElementById('exit-btn');
+            exitBtn.addEventListener('click', () => {
+                localStorage.clear(); // Clear login credentials
+                location.reload(); // Reload the page to show authentication section
+            });
+        });
+    </script>
 </body>
 </html>
